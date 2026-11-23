@@ -471,15 +471,11 @@ GSCSS;
 
 	$hero = '';
 	if ( $cur ) {
-		// Live goal/progress bar shows ONLY on the Water campaign (form 747);
-		// every other campaign hides how much has been raised.
-		$goal = '';
-		if ( 747 === $id ) {
-			$goal = sprintf(
-				'<div class="igi-gs-goal igi-goal" data-form="%d"><div class="igi-gs-goal__track"><span class="igi-gs-goal__fill igi-goal__fill"></span></div><div class="igi-gs-goal__row"><span class="igi-gs-goal__raised igi-goal__raised">Loading&hellip;</span><span class="igi-gs-goal__goal igi-goal__goal"></span></div></div>',
-				$id
-			);
-		}
+		// Live goal/progress bar on every campaign, showing how much is raised.
+		$goal = sprintf(
+			'<div class="igi-gs-goal igi-goal" data-form="%d"><div class="igi-gs-goal__track"><span class="igi-gs-goal__fill igi-goal__fill"></span></div><div class="igi-gs-goal__row"><span class="igi-gs-goal__raised igi-goal__raised">Loading&hellip;</span><span class="igi-gs-goal__goal igi-goal__goal"></span></div></div>',
+			$id
+		);
 		$hero = sprintf(
 			'<div class="igi-gs-hero"><img class="igi-gs-hero__img" src="%s" alt="" fetchpriority="high" decoding="async"><div class="igi-gs-hero__wrap"><div class="igi-gs-hero__eyebrow">%s</div><div class="igi-gs-hero__title">%s</div><p class="igi-gs-hero__blurb">%s</p>%s</div></div>',
 			esc_url( $cur['img'] ),
