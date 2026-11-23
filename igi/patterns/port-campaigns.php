@@ -160,23 +160,9 @@ $igi_uri = get_template_directory_uri() . '/assets/images/';
 
   <script>
   (function () {
-    var grid = document.querySelector('.igi-port .igi-camp-grid');
-    // Equalize cards at their COLLAPSED height only, so expanding one card
-    // grows that card alone and never pads the others with empty space.
-    function equalize() {
-      if (!grid) return;
-      var cards = Array.prototype.slice.call(grid.children);
-      cards.forEach(function (c) { c.style.minHeight = ''; });
-      if (window.innerWidth <= 700) return; // mobile: single column, natural height
-      // measure with every panel closed, then restore the ones that were open
-      var openPanels = Array.prototype.slice.call(grid.querySelectorAll('.igi-camp-panel.is-open'));
-      openPanels.forEach(function (p) { p.classList.remove('is-open'); });
-      var max = 0;
-      cards.forEach(function (c) { if (c.offsetHeight > max) max = c.offsetHeight; });
-      cards.forEach(function (c) { c.style.minHeight = max + 'px'; });
-      openPanels.forEach(function (p) { p.classList.add('is-open'); });
-    }
-
+    // Cards size to their own content (no forced equal height), so there is no
+    // blank space between the text and the progress bar. Expanding "More
+    // details" grows only that card; the grid aligns cards to the top.
     var toggles = document.querySelectorAll('.igi-port .igi-camp-toggle');
     for (var i = 0; i < toggles.length; i++) {
       toggles[i].addEventListener('click', function () {
@@ -187,13 +173,7 @@ $igi_uri = get_template_directory_uri() . '/assets/images/';
         if (panel) { panel.classList.toggle('is-open', !open); }
       });
     }
-
-    equalize();
-    window.addEventListener('load', equalize);
-    if (document.fonts) { if (document.fonts.ready) { document.fonts.ready.then(equalize); } }
-    var rt;
-    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(equalize, 150); });
-    window.__igiCampEqualize = equalize;
+    window.__igiCampEqualize = function () {}; // no-op; kept for the goal script
   })();
   </script>
 
